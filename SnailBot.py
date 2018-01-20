@@ -1,18 +1,13 @@
 # These are the dependecies. The botdepends on these to function, hence the name. Please do not change these unless your adding to them, because they can break the bot.
-import asyncio
 import random
-import string
-
 import config
-import discord
 from discord.ext import commands
-from PyDictionary import PyDictionary
 
 # DEFINE FEATURE!
 
 # Here you can modify the bot's prefix and description and wether it sends help in direct messages or not.
 bot = commands.Bot(description="BOTBOT - the idiot bot", command_prefix="!")
-startup_extensions = ["MyMath", "Rng", "Yams", "Youtube"]
+startup_extensions = ["MyMath", "Rng", "Yams", "Youtube", "General", "Dictionary"]
 
 @bot.event
 async def on_ready():
@@ -36,30 +31,6 @@ async def unload(extension_name : str):
     bot.unload_extension("cogs."+extension_name)
     await bot.say("{} unloaded.".format(extension_name))
 
-# guessing game
-@bot.event
-async def on_message(message):
-    if message.author == bot.user:
-        return
-
-    if message.content.startswith('!guess'):
-        await bot.send_message(message.channel, 'Guess a number between 1 to 10')
-
-        def guess_check(m):
-            return m.content.isdigit()
-
-        guess = await bot.wait_for_message(timeout=5.0, author=message.author, check=guess_check)
-        answer = random.randint(1, 10)
-        if guess is None:
-            fmt = 'Sorry, you took too long. It was {}.'
-            await bot.send_message(message.channel, fmt.format(answer))
-            return
-        if int(guess.content) == answer:
-            await bot.send_message(message.channel, 'You are right!')
-        else:
-            await bot.send_message(message.channel, 'Sorry. It is actually {}.'.format(answer))
-    await bot.process_commands(message)
-
 # bot replying
 @bot.event
 async def on_message(message):
@@ -67,28 +38,6 @@ async def on_message(message):
     if message.author == bot.user:
         return
     lowercase = message.content.lower()
-    #greetings!
-    if "hello" in lowercase and "botbot" in lowercase:
-        await bot.send_message(message.channel, 'hello ' + message.author.name + '!')
-    if "i love you" in lowercase and "botbot" in lowercase:
-        await bot.add_reaction(message,'❤')
-        await bot.send_message(message.channel, 'I love you too, ' + message.author.name + '!')
-    if "i'm alone" in lowercase and "not" not in lowercase:
-        await bot.send_message(message.channel, "Don't worry, Botbot is here!")
-    if "i miss you" in lowercase and "botbot" in lowercase:
-        await bot.send_message(message.channel, "Awww, I'm really sorry I was gone! :pensive:")
-    if "goodbye" in lowercase and "botbot" in lowercase:
-        await bot.send_message(message.channel, "Goodbye " + message.author.name + '!')
-    if "goodnight" in lowercase and "botbot" in lowercase:
-        await bot.send_message(message.channel, "Goodnight " + message.author.name + '!')
-
-
-    # checks for marry
-    if "ma" in lowercase and "ry" in lowercase and lowercase.startswith('!') and lowercase != "!marry":
-        await bot.send_message(message.channel, 'Did you mean to say marry, ' + message.author.name + '?')
-        if "mar" in lowercase and "ie" in lowercase and lowercase.startswith('!'):
-            await bot.send_message(message.channel, 'Did you mean to say marry, ' + message.author.name + '?')
-
     if "talk to me" in lowercase and "botbot" in lowercase:
         helpful = [", is something the matter?", ", can I help you?", ", I'm not that smart, but I'll try to talk!",
                    ", I'm always here to talk!", ", don't tell anyone but you're my favorite, of course I'll chat!"]
@@ -116,108 +65,52 @@ async def on_message(message):
             await bot.send_message(message.channel, random.choice(reply4))
         elif "liar" in response1.content.lower() or "lying" in response1.content.lower():
             await bot.send_message(message.channel, "I would never lie to you, " + message.author.name)
-        elif "define" in response1.content.lower() and "real" in response1.content.lower() or "reality" in response1.content.lower():
+        elif "define" in response1.content.lower() and ("real" in response1.content.lower() or "reality" in response1.content.lower()):
             await bot.send_message(message.channel, "Whatever you make of it, " + message.author.name)
+        elif "hate" in response1.content.lower() and ("you" in response1.content.lower() or "botbot" in response1.content.lower()):
+            await bot.send_message(message.channel, "Do you really feel that way, " + message.author.name + "?")
+        elif "recommend" in response1.content.lower() and "something" in response1.content.lower():
+            await bot.send_message(message.channel, "I'm just a bot! I don't have any recommendations!")
+            response2 = await bot.wait_for_message(timeout=10.0, author=message.author)
+            if "please" in response2.content.lower():
+                await bot.send_message(message.channel, "If you insist I recommend something, go have fun! : D")
+        elif "love" in response1.content.lower() and ("you" in response1.content.lower() or "botbot" in response1.content.lower()):
+            await bot.send_message(message.channel, "I love you too!!")
+            return
         else:
             await bot.send_message(message.channel, "Beep boop! I'm just a bot, silly, I can't talk!")
+
+    #greetings!
+    if "hello" in lowercase and "botbot" in lowercase:
+        await bot.send_message(message.channel, 'hello ' + message.author.name + '!')
+    if "i love you" in lowercase and "botbot" in lowercase:
+        await bot.add_reaction(message,'❤')
+        await bot.send_message(message.channel, 'I love you too, ' + message.author.name + '!')
+    if "i'm alone" in lowercase and "not" not in lowercase:
+        await bot.send_message(message.channel, "Don't worry, Botbot is here!")
+    if "i miss you" in lowercase and "botbot" in lowercase:
+        await bot.send_message(message.channel, "Awww, I'm really sorry I was gone! :pensive:")
+    if "goodbye" in lowercase and "botbot" in lowercase:
+        await bot.send_message(message.channel, "Goodbye " + message.author.name + '!')
+    if "goodnight" in lowercase and "botbot" in lowercase:
+        await bot.send_message(message.channel, "Goodnight " + message.author.name + '!')
+    if "go away botbot" in lowercase:
+        await bot.send_message(message.channel, "I can't because my creator hasn't figured out how to kill me in the code!")
+
+
+    # checks for marry
+    if "ma" in lowercase and "ry" in lowercase and lowercase.startswith('!') and lowercase != "!marry":
+        await bot.send_message(message.channel, 'Did you mean to say marry, ' + message.author.name + '?')
+        if "mar" in lowercase and "ie" in lowercase and lowercase.startswith('!'):
+            await bot.send_message(message.channel, 'Did you mean to say marry, ' + message.author.name + '?')
+
     await bot.process_commands(message)
 
 
 # This is a basic example of a call and response command. You tell it do "this" and it does it.
 
-@bot.command()
-async def marry():
-    marriage_reply = ["Of course! :heart: :ring: :heart:",
-                      "I'll have to say no to that! I'm just a bot!",
-                      "You're really sweet, but we aren't meant to be!",
-                      "Bots can't marry, silly!",
-                      "Perhaps another time, my friend!",
-                      "A relationship with a bot doesn't seem healthy!",
-                      "No, we musn't! :blush:"]
-    await bot.say(random.choice(marriage_reply))
-
-# Some commands which will be put into cogs for better order later.
-
-@bot.command()
-async def convince():
-    await bot.say("Please tell me! :heart:")
-
-@bot.command()
-async def talk(quote):
-    await bot.say(quote)
-
-@bot.command()
-async def curse():
-    curses = ["fuck", "shit", "cock", "ass", "motherfucker", "bitch", "cunt", "cock"]
-    await bot.say(random.choice(curses))
-
-@bot.command()
-async def reject(member : discord.Member):
-    await bot.say('{0.name}, no'.format(member))
-
-@bot.command()
-async def ping():
-    await bot.say(":ping_pong: Pong!")
-    await asyncio.sleep(3)
-
-@bot.command()
-async def define(to_define : str):
-    dictionary = PyDictionary()
-    await bot.say(dictionary.meaning(to_define))
-    await asyncio.sleep(3)
-
-@bot.command()
-async def synonym(word : str):
-    dictionary = PyDictionary()
-    await bot.say(dictionary.synonym(word))
-    await asyncio.sleep(3)
-
-@bot.command()
-async def antonym(word : str):
-    dictionary = PyDictionary()
-    await bot.say(dictionary.antonym(word))
-    await asyncio.sleep(3)
-
-@bot.command()
-async def keyboardsmash():
-    s=""
-    for x in range (0, random.randint(10,25)):
-        s+=random.choice(string.ascii_lowercase)
-    await bot.say(s.upper())
-    await asyncio.sleep(3)
-
-@bot.command()
-async def hate():
-    await bot.say("I HATE YOU! :angry:")
-    await asyncio.sleep(3)
-
-@bot.command()
-async def love():
-    await bot.say("I love you! :heart: ")
-    await asyncio.sleep(3)
-
-@bot.command()
-async def goodbot():
-    await bot.say("Thank you! :blush:")
-    await asyncio.sleep(3)
-
-@bot.command()
-async def badbot():
-    await bot.say(":pensive:")
-    await asyncio.sleep(3)
-
-@bot.command()
-async def apologize():
-    await bot.say("Sorry!")
-    await asyncio.sleep(3)
-
-@bot.command()
-async def botbot():
-    await bot.say("That's me! :kissing_smiling_eyes:")
-    await asyncio.sleep(3)
-
 if __name__ == "__main__":
-    for extension in config.startup_extensions:
+    for extension in startup_extensions:
         try:
             bot.load_extension("cogs."+extension)
         except Exception as e:
