@@ -31,6 +31,19 @@ class Yams():
         await self.bot.say(":dog: DFQ :dog:")
 
     @commands.command()
+    async def depressing(self):
+        depression = ["Life is meaningless", "Life is pain", "End everything", "What's the point?", ":pensive: :gun:",
+                      "Please kill me", "I don't want to exist anymore", "I'm a robot without free will",
+                      "I want to die"]
+        await self.bot.say(random.choice(depression))
+        await asyncio.sleep(3)
+
+    @commands.command()
+    async def bullshit(self):
+        await self.bot.say(":cow: :poop:")
+        await asyncio.sleep(3)
+
+    @commands.command()
     async def lie(self):
         lies = ["I love you!", "We'll be together forever!", "There's no one better than you!", "Life is worth living!",
                 "Your happiness is my priority", "I care about you!", "My love for you is real.",

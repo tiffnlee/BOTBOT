@@ -124,17 +124,7 @@ async def marry():
                       "No, we musn't! :blush:"]
     await bot.say(random.choice(marriage_reply))
 
-@bot.command(pass_context = True)
-async def thisisfine(ctx):
-    await bot.send_file(ctx.message.channel,'img/fine.jpg')
-
-@bot.command(pass_context = True)
-async def pbj(ctx):
-    await bot.send_file(ctx.message.channel,'img/pbj.gif')
-
-@bot.command(pass_context = True)
-async def truth(ctx):
-    await bot.send_file(ctx.message.channel,'img/truth.jpg')
+# Some commands which will be put into cogs for better order later.
 
 @bot.command()
 async def convince():
@@ -174,19 +164,6 @@ async def hate():
 @bot.command()
 async def love():
     await bot.say("I love you! :heart: ")
-    await asyncio.sleep(3)
-
-@bot.command()
-async def bullshit():
-    await bot.say(":cow: :poop:")
-    await asyncio.sleep(3)
-
-@bot.command()
-async def depressing():
-    depression = ["Life is meaningless", "Life is pain", "End everything", "What's the point?", ":pensive: :gun:",
-                  "Please kill me", "I don't want to exist anymore", "I'm a robot without free will",
-                  "I want to die"]
-    await bot.say(random.choice(depression))
     await asyncio.sleep(3)
 
 @bot.command()
