@@ -6,6 +6,9 @@ import string
 import config
 import discord
 from discord.ext import commands
+from PyDictionary import PyDictionary
+
+# DEFINE FEATURE!
 
 # Here you can modify the bot's prefix and description and wether it sends help in direct messages or not.
 bot = commands.Bot(description="BOTBOT - the idiot bot", command_prefix="!")
@@ -73,6 +76,11 @@ async def on_message(message):
         await bot.send_message(message.channel, "Don't worry, Botbot is here!")
     if "i miss you" in lowercase and "botbot" in lowercase:
         await bot.send_message(message.channel, "Awww, I'm really sorry I was gone! :pensive:")
+    if "goodbye" in lowercase and "botbot" in lowercase:
+        await bot.send_message(message.channel, "Goodbye " + message.author.name + '!')
+    if "goodnight" in lowercase and "botbot" in lowercase:
+        await bot.send_message(message.channel, "Goodnight " + message.author.name + '!')
+
 
     # checks for marry
     if "ma" in lowercase and "ry" in lowercase and lowercase.startswith('!') and lowercase != "!marry":
@@ -105,6 +113,10 @@ async def on_message(message):
         elif "hello" in response1.content.lower() or "hi" in response1.content.lower():
             reply4 = ["Hello to you too!", "Hi!", "Hello!"]
             await bot.send_message(message.channel, random.choice(reply4))
+        elif "liar" in response1.content.lower() or "lying" in response1.content.lower():
+            await bot.send_message(message.channel, "I would never lie to you, " + message.author.name)
+        elif "define" in response1.content.lower() and "real" in response1.content.lower() or "reality" in response1.content.lower():
+            await bot.send_message(message.channel, "Whatever you make of it, " + message.author.name)
         else:
             await bot.send_message(message.channel, "Beep boop! I'm just a bot, silly, I can't talk!")
     await bot.process_commands(message)
@@ -145,6 +157,24 @@ async def reject(member : discord.Member):
 @bot.command()
 async def ping():
     await bot.say(":ping_pong: Pong!")
+    await asyncio.sleep(3)
+
+@bot.command()
+async def define(to_define : str):
+    dictionary = PyDictionary()
+    await bot.say(dictionary.meaning(to_define))
+    await asyncio.sleep(3)
+
+@bot.command()
+async def synonym(word : str):
+    dictionary = PyDictionary()
+    await bot.say(dictionary.synonym(word))
+    await asyncio.sleep(3)
+
+@bot.command()
+async def antonym(word : str):
+    dictionary = PyDictionary()
+    await bot.say(dictionary.antonym(word))
     await asyncio.sleep(3)
 
 @bot.command()
