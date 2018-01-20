@@ -12,6 +12,7 @@ from PyDictionary import PyDictionary
 
 # Here you can modify the bot's prefix and description and wether it sends help in direct messages or not.
 bot = commands.Bot(description="BOTBOT - the idiot bot", command_prefix="!")
+startup_extensions = ["MyMath", "Rng", "Yams", "Youtube"]
 
 @bot.event
 async def on_ready():
