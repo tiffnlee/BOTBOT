@@ -1,8 +1,5 @@
 import asyncio
 import random
-from discord.ext import commands
-import asyncio
-import random
 
 from discord.ext import commands
 
@@ -22,7 +19,7 @@ class Yams():
         await self.bot.say(random.choice(slang)+" as!")
 
     @commands.command()
-    async def badkiwi(self):
+    async def lenny(self):
         lenny = ["( ͡° ͜ʖ ͡°)", "(ಥ ͜ʖಥ)", "͡° ͜ʖ ͡°", "(͡o‿O͡)"]
         await self.bot.say(random.choice(lenny))
 

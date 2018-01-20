@@ -1,6 +1,5 @@
 # These are the dependecies. The botdepends on these to function, hence the name. Please do not change these unless your adding to them, because they can break the bot.
 import asyncio
-import platform
 import random
 import string
 
@@ -67,8 +66,8 @@ async def on_message(message):
     #greetings!
     if "hello" in lowercase and "botbot" in lowercase:
         await bot.send_message(message.channel, 'hello ' + message.author.name + '!')
-
     if "i love you" in lowercase and "botbot" in lowercase:
+        await bot.add_reaction(message,'❤')
         await bot.send_message(message.channel, 'I love you too, ' + message.author.name + '!')
     if "i'm alone" in lowercase and "not" not in lowercase:
         await bot.send_message(message.channel, "Don't worry, Botbot is here!")
