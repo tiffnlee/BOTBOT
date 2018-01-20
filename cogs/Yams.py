@@ -3,7 +3,6 @@ import random
 
 from discord.ext import commands
 
-
 class Yams():
     def __init__(self, bot):
         self.bot = bot
@@ -45,7 +44,8 @@ class Yams():
         lies = ["I love you!", "We'll be together forever!", "There's no one better than you!", "Life is worth living!",
                 "Your happiness is my priority", "I care about you!", "My love for you is real.",
                 "We were meant to be!", "Our happiness is shared!", "Our feelings are mutual!", "I would never lie to you",
-                "You're the most important person in my life!", "I can't live without you!"]
+                "You're the most important person in my life!", "I can't live without you!", "I really want to be with you!",
+                "I hope you love me back!", "You're the best!"]
         await self.bot.say(random.choice(lies))
 
     @commands.command()
