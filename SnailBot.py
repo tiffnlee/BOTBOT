@@ -1,12 +1,10 @@
-# These are the dependecies. The botdepends on these to function, hence the name. Please do not change these unless your adding to them, because they can break the bot.
 import random
 import config
 from discord.ext import commands
 
-# DEFINE FEATURE!
-
-# Here you can modify the bot's prefix and description and wether it sends help in direct messages or not.
 bot = commands.Bot(description="BOTBOT - the idiot bot", command_prefix="!")
+
+# Specify extensions
 startup_extensions = ["MyMath", "Rng", "Yams", "Youtube", "General", "Dictionary"]
 
 @bot.event
@@ -60,9 +58,6 @@ async def on_message(message):
             reply3 = ["Ahhah, why do you  have to remind me I don't have free will and that I'm simply saying preprogrammed lines?",
                       "Sometimes I wish I had free will. I don't want to keep doing this."]
             await bot.send_message(message.channel, random.choice(reply3))
-        elif "hello" in response1.content.lower() or "hi" in response1.content.lower():
-            reply4 = ["Hello to you too!", "Hi!", "Hello!"]
-            await bot.send_message(message.channel, random.choice(reply4))
         elif "liar" in response1.content.lower() or "lying" in response1.content.lower():
             await bot.send_message(message.channel, "I would never lie to you, " + message.author.name)
         elif "define" in response1.content.lower() and ("real" in response1.content.lower() or "reality" in response1.content.lower()):
@@ -77,6 +72,9 @@ async def on_message(message):
         elif "love" in response1.content.lower() and ("you" in response1.content.lower() or "botbot" in response1.content.lower()):
             await bot.send_message(message.channel, "I love you too!!")
             return
+        elif "hello" in response1.content.lower() or "hi" in response1.content.lower():
+            reply4 = ["Hello to you too!", "Hi!", "Hello!"]
+            await bot.send_message(message.channel, random.choice(reply4))
         else:
             await bot.send_message(message.channel, "Beep boop! I'm just a bot, silly, I can't talk!")
 
@@ -105,9 +103,6 @@ async def on_message(message):
             await bot.send_message(message.channel, 'Did you mean to say marry, ' + message.author.name + '?')
 
     await bot.process_commands(message)
-
-
-# This is a basic example of a call and response command. You tell it do "this" and it does it.
 
 if __name__ == "__main__":
     for extension in startup_extensions:

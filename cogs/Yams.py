@@ -14,8 +14,9 @@ class Yams():
 
     @commands.command()
     async def badkiwi(self):
-        slang = ["Sweet", "Carked"]
-        await self.bot.say(random.choice(slang)+" as!")
+        slang = ["Sweet as!", "Carked as!", "The bus is chocka today!", "That shop is dear.", "Going flat out!",
+                 "Hard bro, hard.", "Jandals", "She's quite a hard case!", "Mate", "This bot is munted.", "I'm knackered."]
+        await self.bot.say(random.choice(slang))
 
     @commands.command()
     async def lenny(self):

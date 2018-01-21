@@ -15,7 +15,6 @@ class Youtube:
         """Searches YouTube for a video.
         Returns the first result."""
         try:
-
             youtube = build("youtube", "v3", developerKey=config.youtubekey)
             search_response = youtube.search().list(q=message.split(), part="id,snippet",
                                                         maxResults=1, type="video").execute()

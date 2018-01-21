@@ -18,8 +18,6 @@ class General:
                           "No, we musn't! :blush:"]
         await self.bot.say(random.choice(marriage_reply))
     
-    # Some commands which will be put into cogs for better order later.
-    
     @commands.command()
     async def convince(self):
         await self.bot.say("Please tell me! :heart:")
